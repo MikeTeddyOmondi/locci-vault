@@ -1,0 +1,24 @@
+### POST Login
+POST http://localhost:8200/v1/login 
+Content-Type: application/json
+
+{
+    "username": "foo",
+    "password": "bar"
+}
+
+### GET Secrets
+GET http://localhost:8200/v1/secrets/t1
+Authorization: valid
+Content-Type: application/json
+
+### Create Secrets
+POST http://localhost:8200/v1/secrets/t1
+Authorization: valid
+Content-Type: application/json
+
+{
+    "data": {
+        "secret": "secretX"
+    }
+}
