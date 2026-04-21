@@ -25,7 +25,7 @@ enum Commands {
     HealthCheck,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 struct ResponseData {
     message: String,
 }
@@ -34,11 +34,11 @@ struct ResponseData {
 async fn main() -> Result<(), Box<dyn Error>> {
     let cli = Cli::parse();
     let client = Client::new();
-    let base_url = "http://127.0.0.1:8200/v1"; // Adjust based on your server configuration
+    let base_url = "http://127.0.0.1:8200"; // Adjust based on your server configuration
 
     match cli.command {
         Commands::SendRequest { endpoint } => {
-            let url = format!("{}/{}", base_url, endpoint);
+            let url = format!("{}/v1/{}", base_url, endpoint);
             let res: ResponseData = client.get(&url).send().await?.json().await?;
             println!("Response: {}", res.message);
         }

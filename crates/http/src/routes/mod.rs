@@ -1,7 +1,7 @@
 pub mod secrets;
 pub mod auth;
 
-use actix_web::web;
+use actix_web::{web, HttpResponse, Responder};
 
 /// Register all API endpoints.
 pub fn init_routes(cfg: &mut web::ServiceConfig) {
@@ -11,4 +11,10 @@ pub fn init_routes(cfg: &mut web::ServiceConfig) {
             .service(secrets::read_secret)
             .service(auth::login)
     );
+}
+
+pub async fn health_check() -> impl Responder {
+    HttpResponse::Ok().json(serde_json::json!({
+        "message": "OK",
+    }))
 }
